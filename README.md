@@ -4,11 +4,15 @@ Site for resesrving the boat "Adagio". Adagio boat is owned by a group of friend
 
 - Create a user
 - Login as a user
-- See and modify user details
+- See and modify user details from user page
 - Create a reservation
 - Modify a reservation
+- Delete a reservation
 - Create an issue notification
 - Modify an issue notification
+- Delete an issue notification
+- Issue notification and reservation are defined via tag
 - Upload pictures to reservations
 - Upload pictures to issue notifications
+- Search for specific issue notifications and reservations
 - See a calendar view of created reservations and issues
