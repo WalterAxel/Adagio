@@ -2,7 +2,7 @@ from flask import Flask
 from flask import render_template, request, redirect, session
 import sqlite3
 import db
-import config, users
+import config, users, postBoard
 
 app = Flask(__name__)
 app.secret_key = config.secret_key
@@ -46,4 +46,16 @@ def register():
 def home():
     if "user_id" not in session:
         return redirect("/login")
-    return render_template("home.html")
+    posts = postBoard.get_posts()
+    return render_template("home.html", posts=posts)
+
+@app.route("/new_post", methods=["GET", "POST"])
+def new_post():
+    if request.method == "GET":
+        return render_template("new_post.html")
+    if request.method == "POST":
+        title = request.form["title"]
+        content = request.form["content"]
+        user_id = session["user_id"]
+        postBoard.add_post(title, content, user_id)
+        return redirect("/home")
