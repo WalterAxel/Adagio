@@ -18,4 +18,6 @@ Back end:
 - SQLite
 
 ## Setting up the environment
-
+First copy the schema.sql to database.db:
+`sqlite3 database.db < schema.sql`
+We are using Flask for the development environment, so starting the development environment is done with the command `flask run`
