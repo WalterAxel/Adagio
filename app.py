@@ -2,7 +2,8 @@ from flask import Flask
 from flask import render_template, request, redirect, session
 import sqlite3
 import db
-import config, users, postBoard
+import config, users
+import postBoard
 
 app = Flask(__name__)
 app.secret_key = config.secret_key
