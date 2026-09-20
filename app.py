@@ -3,7 +3,7 @@ from flask import render_template, request, redirect, session
 import sqlite3
 import db
 import config, users
-import postBoard
+import post_board
 
 app = Flask(__name__)
 app.secret_key = config.secret_key
@@ -47,16 +47,41 @@ def register():
 def home():
     if "user_id" not in session:
         return redirect("/login")
-    posts = postBoard.get_posts()
+    posts = post_board.get_posts()
     return render_template("home.html", posts=posts)
+
 
 @app.route("/new_post", methods=["GET", "POST"])
 def new_post():
+    if "user_id" not in session:
+        return redirect("/login")
     if request.method == "GET":
         return render_template("new_post.html")
     if request.method == "POST":
         title = request.form["title"]
         content = request.form["content"]
         user_id = session["user_id"]
-        postBoard.add_post(title, content, user_id)
+        post_board.add_post(title, content, user_id)
         return redirect("/home")
+
+@app.route("/edit_post/<int:post_id>", methods=["GET", "POST"])
+def edit_post(post_id):
+    if "user_id" not in session:
+        return redirect("/login")
+    post = post_board.get_post(post_id)
+    if not post:
+        return "VIRHE: Ilmoitusta ei löydy"
+    if request.method == "GET":
+        return render_template("edit_post.html", post=post)
+    if request.method == "POST":
+        title = request.form["title"]
+        content = request.form["content"]
+        post_board.update_post(post_id, title, content)
+        return redirect("/home")
+
+@app.route("/delete_post/<int:post_id>", methods=["POST"])
+def delete_post(post_id):
+    if "user_id" not in session:
+        return redirect("/login")
+    post_board.delete_post(post_id)
+    return redirect("/home")

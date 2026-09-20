@@ -1,0 +1,16 @@
+<h2>Ilmoitukset</h2>
+<p>Tällä sivulla näet kaikki ilmoitukset.</p>
+<ul>
+    {% for post in posts %}
+    <li>
+        {{ post.title }} - {{ post.content }}
+        <form action="/edit_post/{{ post.id }}" method="get">
+            <button type="submit">Muuta</button>
+        </form>
+        <form action="/delete_post/{{ post.id }}" method="post">
+            <button type="submit">Poista</button>
+        </form>
+    </li>
+    {% endfor %}
+</ul>
+<a href="/new_post">Lisää ilmoitus</a>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Adagio - Muuta ilmoitusta</title>
+    </head>
+    <body>
+        <a href="/home">Takaisin</a>
+        <h1>Muuta ilmoitusta</h1>
+        <form method="post">
+            <label for="title">Otsikko:</label>
+            <input type="text" id="title" name="title" value="{{ post.title }}" required>
+            <label for="content">Ilmoitus:</label>
+            <textarea id="content" name="content" required>{{ post.content }}</textarea>
+            <button type="submit">Tallenna</button>
+            <a href="/home">Peruuta</a>
+        </form>
+    </body>
+</html>
